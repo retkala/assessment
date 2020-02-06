@@ -2,17 +2,17 @@
 
 ### Setup
 
-####Pull image from docker hub
+#### Pull image from docker hub
 ```bash
 docker pull retkala/assessment:latest
 ```
 
-####Run docker image
+#### Run docker image
 ```bash
 docker run -p 8080:8080 -t retkala/assessment
 ```
 
-#####Example request
+##### Example request
 
 ```$xslt
 curl -i -X POST \
