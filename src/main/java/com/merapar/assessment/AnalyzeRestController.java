@@ -55,8 +55,7 @@ public class AnalyzeRestController {
                 saxParser = factory.newSAXParser();
                 saxParser.parse(new FileInputStream(file), postsHandler);
             } catch (ParserConfigurationException | SAXException | IOException e) {
-                logger.error("Error while xml parsing", e);
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+                logger.error("Error parsing", e);
             }
         }
         return ResponseEntity.status(HttpStatus.OK).body(postsHandler.getAnalyzes());
