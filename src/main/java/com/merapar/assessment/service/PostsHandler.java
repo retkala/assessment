@@ -1,5 +1,7 @@
-package com.merapar.assessment;
+package com.merapar.assessment.service;
 
+import com.merapar.assessment.model.AnalyzesDetails;
+import com.merapar.assessment.model.AnalyzesResult;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 

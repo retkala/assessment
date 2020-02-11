@@ -1,4 +1,4 @@
-package com.merapar.assessment;
+package com.merapar.assessment.model;
 
 import com.google.common.base.Objects;
 
