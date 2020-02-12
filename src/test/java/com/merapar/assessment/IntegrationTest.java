@@ -2,7 +2,6 @@ package com.merapar.assessment;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.merapar.assessment.model.AnalyzesResult;
-import com.merapar.assessment.repository.FileRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -78,7 +77,7 @@ class IntegrationTest {
 
     @Test
     void testOkRequest() throws Exception {
-        MvcResult result  = mvc.perform(
+        MvcResult result = mvc.perform(
                 post("http://localhost:8080/analyze")
                         .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
                         .content("{\"url\" : \"http://localhost:8000/file.xml\"}"))

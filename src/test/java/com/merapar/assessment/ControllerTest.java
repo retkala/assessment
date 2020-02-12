@@ -46,7 +46,7 @@ class ControllerTest {
 
         when(parserService.parse(any(AnalyzesRequest.class))).thenReturn(getTestAnalyzesResult());
 
-        MvcResult result  = mvc.perform(
+        MvcResult result = mvc.perform(
                 post("http://localhost:8080/analyze")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"url\" : \"okUrl\"}"))

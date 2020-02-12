@@ -54,8 +54,6 @@ class ServiceTest {
     }
 
 
-
-
     public static AnalyzesResult getTestAnalyzesResult() {
         AnalyzesDetails expectedDetails = new AnalyzesDetails()
                 .firstPost(LocalDateTime.parse("2015-07-14T18:39:27.757"))
