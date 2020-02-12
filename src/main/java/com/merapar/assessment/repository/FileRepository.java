@@ -8,6 +8,7 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.URI;
 
@@ -17,13 +18,17 @@ public class FileRepository {
     @Autowired
     RestTemplate restTemplate;
 
-    public File getFile(AnalyzesRequest url) {
+    public File getFile(AnalyzesRequest url) throws FileNotFoundException {
         File file;
-        file = restTemplate.execute(URI.create(url.getUrl()), HttpMethod.GET, null, clientHttpResponse -> {
-            File ret = File.createTempFile("download", "tmp");
-            StreamUtils.copy(clientHttpResponse.getBody(), new FileOutputStream(ret));
-            return ret;
-        });
-        return file;
+        try {
+            file = restTemplate.execute(URI.create(url.getUrl()), HttpMethod.GET, null, clientHttpResponse -> {
+                File ret = File.createTempFile("download", "tmp");
+                StreamUtils.copy(clientHttpResponse.getBody(), new FileOutputStream(ret));
+                return ret;
+            });
+            return file;
+        } catch (Exception e) {
+            throw new FileNotFoundException(e.getMessage());
+        }
     }
 }

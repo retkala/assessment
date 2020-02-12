@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
 
@@ -41,7 +42,7 @@ class ControllerTest {
 
 
     @Test
-    void testAnalyze() throws Exception {
+    void testAnalyzeOkRequest() throws Exception {
 
         when(parserService.parse(any(AnalyzesRequest.class))).thenReturn(getTestAnalyzesResult());
 
@@ -57,15 +58,28 @@ class ControllerTest {
     }
 
     @Test
-    void testAnalyzeBadRequest() throws Exception {
+    void testAnalyzeFileNotFound() throws Exception {
 
         when(parserService.parse(any(AnalyzesRequest.class))).thenThrow(new IOException("file not found"));
 
-        MvcResult result  = mvc.perform(
+        mvc.perform(
                 post("http://localhost:8080/analyze")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"url\" : \"badUrl\"}"))
-                .andExpect(status().isNotFound()).andReturn();
+                .andExpect(status().isNotFound());
+
+    }
+
+    @Test
+    void testAnalyzeParserException() throws Exception {
+
+        when(parserService.parse(any(AnalyzesRequest.class))).thenThrow(new SAXException());
+
+        mvc.perform(
+                post("http://localhost:8080/analyze")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"url\" : \"badUrl\"}"))
+                .andExpect(status().isInternalServerError());
 
 
     }

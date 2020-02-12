@@ -12,11 +12,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.xml.sax.SAXException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
 import static com.merapar.assessment.RepositoryTest.PATH_TO_TEST_XML;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -39,6 +41,19 @@ class ServiceTest {
         AnalyzesResult analyzesResult = parserService.parse(new AnalyzesRequest("url"));
         assertThat(analyzesResult.getDetails()).isEqualTo(getTestAnalyzesResult().getDetails());
     }
+
+    @Test
+    public void NoFileParseTest() throws IOException {
+        when(fileRepository.getFile(any(AnalyzesRequest.class))).thenThrow(new FileNotFoundException("404 Not Found: [no body]"));
+
+        Exception exception = assertThrows(FileNotFoundException.class, () -> parserService.parse(new AnalyzesRequest("url")));
+
+        assertThat(exception).isInstanceOf(FileNotFoundException.class);
+        assertThat(exception).hasMessage("404 Not Found: [no body]");
+
+    }
+
+
 
 
     public static AnalyzesResult getTestAnalyzesResult() {
