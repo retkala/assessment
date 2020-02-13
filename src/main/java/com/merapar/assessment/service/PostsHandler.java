@@ -5,16 +5,14 @@ import com.merapar.assessment.model.AnalyzesResult;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class PostsHandler extends DefaultHandler implements Serializable {
+public class PostsHandler extends DefaultHandler {
 
     private static final String POSTS = "posts";
     private static final String POST = "row";
     private static final String ACCEPTED = "AcceptedAnswerId";
     private static final String SCORE = "Score";
-    private static final String POST_TYPE = "PostTypeId";
     private static final String CREATION_DATE = "CreationDate";
 
     private static long sum;

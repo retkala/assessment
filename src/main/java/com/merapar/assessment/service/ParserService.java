@@ -19,11 +19,11 @@ import java.io.*;
 public class ParserService {
 
     @Autowired
-    FileRepository fileRepository;
+    private FileRepository fileRepository;
 
-    private static SAXParser saxParser;
-    private static PostsHandler postsHandler;
-    private static Logger logger = LoggerFactory.getLogger(AnalyzeRestController.class);
+    private SAXParser saxParser;
+    private PostsHandler postsHandler;
+    private Logger logger = LoggerFactory.getLogger(AnalyzeRestController.class);
 
 
     public ParserService() {

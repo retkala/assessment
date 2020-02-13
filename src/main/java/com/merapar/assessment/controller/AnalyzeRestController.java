@@ -18,22 +18,22 @@ import java.io.*;
 public class AnalyzeRestController {
 
     @Autowired
-    ParserService parserService;
+    private ParserService parserService;
 
     private Logger logger = LoggerFactory.getLogger(AnalyzeRestController.class);
 
     @RequestMapping(value = "/analyze", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<AnalyzesResult> analyzeXml(@RequestBody AnalyzesRequest url) {
-        AnalyzesResult result = null;
         try {
-            result = parserService.parse(url);
+            return ResponseEntity.status(HttpStatus.OK).body(parserService.parse(url));
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (SAXException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

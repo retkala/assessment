@@ -16,7 +16,7 @@ import java.net.URI;
 public class FileRepository {
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     public File getFile(AnalyzesRequest url) throws FileNotFoundException {
         File file;

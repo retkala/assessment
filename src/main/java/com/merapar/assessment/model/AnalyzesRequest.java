@@ -4,6 +4,7 @@ public class AnalyzesRequest {
     private String url;
 
     public AnalyzesRequest() {}
+
     public AnalyzesRequest(String url) {
         this.url = url;
     }
